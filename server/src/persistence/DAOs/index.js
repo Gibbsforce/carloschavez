@@ -1,4 +1,4 @@
-import ProductsDAOFile from "./products/productsDAOFile.js"
+import ProductsDAOFile from "./products/ProductsDAOFile.js"
 // Singleton
 class PersistenceFactorySingleton {
   static instance
