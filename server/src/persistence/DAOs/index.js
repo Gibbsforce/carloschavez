@@ -1,9 +1,13 @@
+// DAOs products
 import ProductsDAOFile from "./products/ProductsDAOFile.js"
+// DAOs users
+import UsersDAOFile from "./users/UsersDAOFile.js"
 // Singleton
 class PersistenceFactorySingleton {
   static instance
   constructor() {
     this.productsDAO = null
+    this.usersDAOFile = null
   }
   static getInstance(persistence) {
     if (!!PersistenceFactorySingleton.instance) {
@@ -11,6 +15,7 @@ class PersistenceFactorySingleton {
     }
     if (persistence === "file") {
       this.productsDAO = new ProductsDAOFile()
+      this.usersDAO = new UsersDAOFile()
       PersistenceFactorySingleton.instance = this
       return this
     }
