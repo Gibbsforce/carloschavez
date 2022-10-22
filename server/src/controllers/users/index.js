@@ -1,11 +1,13 @@
 import persistence from "../index.js"
+import { token } from "../../utils/token.js"
+import { createHash, isValidPassword } from "../../utils/hash.js"
 const { usersDAO } = persistence
 // Controllers
 const signUp = async (req, res) => {
   const { name, password, email } = req.body
   const newUser = {
     name,
-    password,
+    password: createHash(password),
     email,
   }
   try {
@@ -18,6 +20,7 @@ const signUp = async (req, res) => {
     res.status(201).json({
       message: "OK",
       user: user,
+      token: token(newUser),
     })
   } catch (error) {
     res.status(500).json({
@@ -34,8 +37,14 @@ const login = async (req, res) => {
       return res
         .status(404)
         .json({ message: "Not found", description: "User not found" })
+    if (!isValidPassword(user, password))
+      return res.status(401).json({
+        message: "Unauthorized",
+        description: "Invalid password",
+      })
     res.status(200).json({
       message: "OK",
+      token: token(user),
     })
   } catch (error) {
     res.status(500).json({
@@ -70,7 +79,7 @@ const getUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { email } = req.user
   try {
-    const user = await usersDAO(email)
+    const user = await usersDAO.getById(email)
     if (!user)
       return res
         .status(404)
