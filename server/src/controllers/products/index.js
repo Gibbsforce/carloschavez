@@ -25,6 +25,7 @@ const createProduct = async (req, res) => {
     type: req.body.type,
     category: req.body.category,
     amount: req.body.amount,
+    image: req.body.image,
   }
   try {
     const productSaved = await productsDAO.save(product)
@@ -69,7 +70,7 @@ const updateProductById = async (req, res) => {
         .status(400)
         .json({ message: "Not found", description: "Couldn't find" })
     const prevProduct = await productsDAO.getById(id)
-    const { name, description, type, category, amount } = req.body
+    const { name, description, type, category, amount, image } = req.body
     const product = {
       ...prevProduct,
       name: name,
@@ -77,6 +78,7 @@ const updateProductById = async (req, res) => {
       type: type,
       category: category,
       amount: amount,
+      image: image,
     }
     const productUpdated = await productsDAO.updateById(id, product)
     res.status(200).json({
