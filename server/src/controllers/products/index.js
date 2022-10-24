@@ -20,12 +20,17 @@ const getProducts = async (req, res) => {
 }
 const createProduct = async (req, res) => {
   const product = {
-    name: req.body.name,
-    description: req.body.description,
-    type: req.body.type,
-    category: req.body.category,
-    amount: req.body.amount,
-    image: req.body.image,
+    product_name: req.body.product_name,
+    product_description: req.body.product_description,
+    product_description_long: req.body.product_description_long,
+    product_color: req.body.product_color,
+    product_use: req.body.product_use,
+    product_measure: req.body.product_measure,
+    product_category: req.body.product_category,
+    product_price: req.body.product_price,
+    product_price_discount: req.body.product_price_discount,
+    product_image: req.body.product_image,
+    product_stock: req.body.product_stock,
   }
   try {
     const productSaved = await productsDAO.save(product)
@@ -70,15 +75,32 @@ const updateProductById = async (req, res) => {
         .status(400)
         .json({ message: "Not found", description: "Couldn't find" })
     const prevProduct = await productsDAO.getById(id)
-    const { name, description, type, category, amount, image } = req.body
+    const {
+      product_name,
+      product_description,
+      product_description_long,
+      product_color,
+      product_use,
+      product_measure,
+      product_category,
+      product_price,
+      product_price_discount,
+      product_image,
+      product_stock,
+    } = req.body
     const product = {
       ...prevProduct,
-      name: name,
-      description: description,
-      type: type,
-      category: category,
-      amount: amount,
-      image: image,
+      product_name: product_name,
+      product_description: product_description,
+      product_description_long: product_description_long,
+      product_color: product_color,
+      product_use: product_use,
+      product_measure: product_measure,
+      product_category: product_category,
+      product_price: product_price,
+      product_price_discount: product_price_discount,
+      product_image: product_image,
+      product_stock: product_stock,
     }
     const productUpdated = await productsDAO.updateById(id, product)
     res.status(200).json({
