@@ -16,4 +16,4 @@ const AUTH_SIGNUP = `${API_URL}/auth/signup`
 const AUTH_LOGIN = `${API_URL}/auth/login`
 const AUTH_USER = `${API_URL}/auth/user`
 
-export { PRODUCTS, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGIN, AUTH_USER }
+export { PRODUCTS, AUTH_SIGNUP, AUTH_LOGIN, AUTH_USER }

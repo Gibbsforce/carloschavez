@@ -1,11 +1,23 @@
 import { useState, useEffect } from "react"
 import { Box, Grid } from "@chakra-ui/react"
 import Card from "../../components/Card"
-import dataTest from "../../utils/dataTest"
+// API
+import API from "../../API"
 const Products = () => {
   const [data, setData] = useState(Array)
   useEffect(() => {
-    setData(dataTest)
+    const getProducts = async () => {
+      try {
+        const getProducts = await API.fetchGetProducts()
+        const { message, products } = getProducts
+        if (message === "OK") {
+          setData(products)
+        }
+      } catch(error){
+        console.log(error)
+      }
+    }
+    getProducts()
   }, [])
   return (
     <Box
