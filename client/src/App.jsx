@@ -1,5 +1,5 @@
-// chakra test
-import { Box } from "@chakra-ui/react"
+// pages
+import Products from "./pages/products"
 // Components
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -10,7 +10,7 @@ const App = () => {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Box color="primary">Hello world!</Box>} />
+        <Route path="/products" element={<Products />} />
       </Routes>
       <Footer/>
     </Router>
